@@ -1,5 +1,5 @@
 import "./Main.css";
-import WeatherCard from "./WeatherCard/WeatherCard";  
+import WeatherCard from "./WeatherCard/WeatherCard";
 import ItemCard from "../ItemCard/ItemCard";
 
 function Main({ clothingItems, handleOpenItemModal }) {
@@ -10,12 +10,12 @@ function Main({ clothingItems, handleOpenItemModal }) {
       <ul className="main__card-list">
         {clothingItems.map((item) => {
           return (
-          <ItemCard
-            key={item._id}
-            data={item}
-            onCardClick={handleOpenItemModal}
-          />
-        );
+            <ItemCard
+              key={item._id}
+              data={item}
+              onCardClick={handleOpenItemModal}
+            />
+          );
         })}
       </ul>
     </main>

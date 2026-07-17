@@ -66,12 +66,12 @@ function App() {
         isOpen={activeModal === "add-garment-modal"}
         title="New garment"
         buttonText="Add garment"
-        name="garment-name"
+        name="add-garment-form"
         handleCloseModal={handleCloseModal}
         handleSubmit={handleSubmit}
       >
         <fieldset className="modal__fieldset">
-          <label htmlFor="add-garment-form" className="modal__label">
+          <label htmlFor="garment-name" className="modal__label">
             Name
             <input
               id="garment-name"
@@ -80,7 +80,7 @@ function App() {
               placeholder="Name"
             />
           </label>
-          <label htmlFor="add-url-form" className="modal__image">
+          <label className="modal__image">
             Image{" "}
             {errorMessage && (
               <span className="modal__error">{errorMessage}</span>
@@ -93,7 +93,6 @@ function App() {
                   setErrorMessage("(This is not a valid image link)");
                 }
               }}
-              id="add-url-form"
               type="url"
               className="modal__image-url"
               placeholder="Image URL"

@@ -1,6 +1,6 @@
 import logo from "../../assets/logo.svg";
 import avatar from "../../assets/avatar.svg";
-import "./Header.css"
+import "./Header.css";
 
 function Header({ handleOpenAddGarmentModal }) {
   const now = new Date();
@@ -15,19 +15,21 @@ function Header({ handleOpenAddGarmentModal }) {
       <p className="header__place">
         <time className="header__datetime" dateTime={now}>
           {dateStr}
-          </time>
-          , New York
+        </time>
+        , New York
       </p>
-      <button onClick={handleOpenAddGarmentModal}
-              className="header__add-clothes-btn"
+      <button
+        onClick={handleOpenAddGarmentModal}
+        className="header__add-clothes-btn"
       >
         + Add clothes
       </button>
       <p className="header__username">Terrence Tegegne</p>
-      <img 
+      <img
         src={avatar}
         alt="Terrence Tegegne's Avatar"
-        className="header__avatar" />
+        className="header__avatar"
+      />
     </header>
   );
 }

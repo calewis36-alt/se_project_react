@@ -9,12 +9,12 @@
 
 .header__datetime {
   margin-left: 0;
-} 
+}
 
 .header__add-clothes-btn {
   display: flex;
   align-self: self-end;
-  margin-left: auto; 
+  margin-left: auto;
   margin-right: 20px;
   padding: 0;
   background-color: transparent;
