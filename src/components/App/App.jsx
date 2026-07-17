@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Header from "../Header/Header";
 import Main from "../Main/Main";
@@ -14,6 +14,22 @@ function App() {
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    if (!activeModal) return;
+
+    const handleEscClose = (e) => {
+      if (e.key === "Escape") {
+        handleCloseModal();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscClose);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscClose);
+    };
+  }, [activeModal]);
 
   function handleOpenItemModal(card) {
     setActiveModal("item-modal");
@@ -50,7 +66,7 @@ function App() {
         isOpen={activeModal === "add-garment-modal"}
         title="New garment"
         buttonText="Add garment"
-        name="add-garment-form"
+        name="garment-name"
         handleCloseModal={handleCloseModal}
         handleSubmit={handleSubmit}
       >
@@ -58,7 +74,7 @@ function App() {
           <label htmlFor="add-garment-form" className="modal__label">
             Name
             <input
-              id="add-garment-form"
+              id="garment-name"
               type="text"
               className="modal__input"
               placeholder="Name"

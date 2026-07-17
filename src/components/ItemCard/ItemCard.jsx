@@ -12,6 +12,7 @@ function ItemCard({ data, onCardClick }) {
         src={data.link}
         alt={data.name}
         className="card__image" 
+        alt="Card Image"
         onClick={handleOpenCard}
       />
     </li>

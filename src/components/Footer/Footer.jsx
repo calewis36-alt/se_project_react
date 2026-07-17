@@ -1,8 +1,11 @@
 import "./Footer.css";
 
-
 function Footer() {
-  return <footer className="footer"><p>Developed by Christopher Lewis</p> <p>©2026</p></footer>
+  return (
+    <footer className="footer">
+      <p>Developed by Christopher Lewis</p> <p>©2026</p>
+    </footer>
+  );
 }
 
 export default Footer;
