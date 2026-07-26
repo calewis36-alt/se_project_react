@@ -1,14 +1,25 @@
 import "./Main.css";
 import WeatherCard from "./WeatherCard/WeatherCard";
 import ItemCard from "../ItemCard/ItemCard";
+import { useContext } from "react";
+import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 
-function Main({ clothingItems, handleOpenItemModal }) {
+function Main({ clothingItems, handleOpenItemModal, weatherData }) {
+  const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
+  const filteredItems = clothingItems.filter(
+    (item) => item.weather === weatherData.type,
+  );
+
   return (
     <main className="main">
-      <WeatherCard />
-      <p className="main__text">Today is 75° F / You may want to wear:</p>
+      <WeatherCard weatherData={weatherData} />
+      <p className="main__text">
+        Today is {weatherData.temperature[currentTemperatureUnit]}
+        &deg;
+        {currentTemperatureUnit} / You may want to wear:
+      </p>
       <ul className="main__card-list">
-        {clothingItems.map((item) => {
+        {filteredItems.map((item) => {
           return (
             <ItemCard
               key={item._id}

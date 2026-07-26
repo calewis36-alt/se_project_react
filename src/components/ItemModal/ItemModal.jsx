@@ -3,8 +3,6 @@ import "./ItemModal.css";
 import closeButton from "../../assets/close-btn.svg";
 
 function ItemModal({ card, isOpen, handleCloseModal }) {
-  if (!isOpen || !card) return null;
-
   function handleOverlayClick(event) {
     if (event.target === event.currentTarget) {
       handleCloseModal();
