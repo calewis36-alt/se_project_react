@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import closeButton from "../../../assets/close-btn2.svg";
+import "./ModalWithForm.css";
 
 function ModalWithForm({
   isOpen,
