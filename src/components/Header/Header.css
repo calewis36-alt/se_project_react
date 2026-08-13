@@ -50,3 +50,10 @@
 .header__username {
   margin-bottom: 33px;
 }
+
+.header__link {
+  display: flex;
+  text-decoration:none;
+  color: #000000;
+}
+

@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
-
+import { Route, Routes } from "react-router-dom";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import ItemModal from "../ItemModal/ItemModal";
-import ModalWithForm from "../Main/ModalWithForm/ModalWithForm";
-
-import { defaultClothingItems } from "../../utils/defaultClothingItems";
+import AddItemModal from "../AddItemModal/AddItemModal";
+import Profile from "../Profile/Profile";
 import "./App.css";
 import { getWeatherData } from "../../utils/weatherApi";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
+import { getItems, addItem, deleteItem } from "../../../api";
 
 function App() {
   const [clothingItems, setClothingItems] = useState([]);
@@ -65,6 +65,28 @@ function App() {
     }
   }
 
+  function handleAddItemSubmit(inputValues) {
+    addItem(inputValues)
+      .then((data) => {
+        setClothingItems([data, ...clothingItems]);
+        handleCloseModal();
+      })
+      .catch(console.error);
+  }
+
+  function handleDeleteItem(item) {
+    deleteItem(item._id)
+      .then(() => {
+        setClothingItems(
+          clothingItems.filter((clothingItems) => {
+            return clothingItems._id != item._id;
+          }),
+        );
+        handleCloseModal();
+      })
+      .catch(console.error);
+  }
+
   useEffect(() => {
     getWeatherData()
       .then((data) => {
@@ -74,7 +96,11 @@ function App() {
   }, []);
 
   useEffect(() => {
-    setClothingItems(defaultClothingItems);
+    getItems()
+      .then((items) => {
+        setClothingItems(items.reverse());
+      })
+      .catch(console.error);
   }, []);
 
   return (
@@ -86,98 +112,43 @@ function App() {
           weatherData={weatherData}
           handleOpenAddGarmentModal={handleOpenAddGarmentModal}
         />
-        <Main
-          weatherData={weatherData}
-          clothingItems={clothingItems}
-          handleOpenItemModal={handleOpenItemModal}
-        />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Main
+                weatherData={weatherData}
+                clothingItems={clothingItems}
+                handleOpenItemModal={handleOpenItemModal}
+              />
+            }
+          ></Route>
+          <Route
+            path="/profile"
+            element={
+              <Profile
+                clothingItems={clothingItems}
+                handleOpenAddGarmentModal={handleOpenAddGarmentModal}
+                handleOpenItemModal={handleOpenItemModal}
+              />
+            }
+          ></Route>
+        </Routes>
+
         <Footer />
         <ItemModal
           card={selectedCard}
           isOpen={activeModal === "item-modal"}
           handleCloseModal={handleCloseModal}
+          handleDeleteItem={handleDeleteItem}
         />
-        <ModalWithForm
+        <AddItemModal
           isOpen={activeModal === "add-garment-modal"}
-          title="New garment"
-          buttonText="Add garment"
-          name="add-garment-form"
           handleCloseModal={handleCloseModal}
-          handleSubmit={handleSubmit}
-        >
-          <fieldset className="modal__fieldset">
-            <label htmlFor="garment-name" className="modal__label">
-              Name
-              <input
-                id="garment-name"
-                type="text"
-                className="modal__input"
-                placeholder="Name"
-              />
-            </label>
-            <label className="modal__image">
-              Image{" "}
-              {errorMessage && (
-                <span className="modal__error">{errorMessage}</span>
-              )}
-              <input
-                onChange={(e) => {
-                  if (e.target.validity.valid) {
-                    setErrorMessage("");
-                  } else {
-                    setErrorMessage("(This is not a valid image link)");
-                  }
-                }}
-                type="url"
-                className="modal__image-url"
-                placeholder="Image URL"
-                name="link"
-              />
-            </label>
-          </fieldset>
-          <fieldset className="fieldset__radio">
-            <legend className={"radio__title"}>Select the weather type:</legend>
-
-            <div>
-              <input
-                className={"modal__radio-btn"}
-                type="radio"
-                id="hot"
-                name="weather"
-                value="hot"
-              />
-              <label className={"modal__label"} htmlFor="hot">
-                Hot
-              </label>
-            </div>
-
-            <div>
-              <input
-                className={"modal__radio-btn"}
-                type="radio"
-                id="warm"
-                name="weather"
-                value="warm"
-              />
-              <label className={"modal__label"} htmlFor="warm">
-                Warm
-              </label>
-            </div>
-
-            <div>
-              <input
-                className={"modal__radio-btn"}
-                type="radio"
-                id="cold"
-                name="weather"
-                value="cold"
-              />
-              <label className={"modal__label"} htmlFor="cold">
-                Cold
-              </label>
-            </div>
-          </fieldset>
-        </ModalWithForm>
+          handleAddItemSubmit={handleAddItemSubmit}
+          errorMessage={errorMessage}
+          setErrorMessage={setErrorMessage}
+        />
       </div>
     </CurrentTemperatureUnitContext.Provider>
   );

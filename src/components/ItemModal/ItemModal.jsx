@@ -2,7 +2,10 @@ import React from "react";
 import "./ItemModal.css";
 import closeButton from "../../assets/close-btn.svg";
 
-function ItemModal({ card, isOpen, handleCloseModal }) {
+function ItemModal({ card, isOpen, handleCloseModal, handleDeleteItem }) {
+  function handleDelete() {
+    handleDeleteItem(card);
+  }
   function handleOverlayClick(event) {
     if (event.target === event.currentTarget) {
       handleCloseModal();
@@ -23,9 +26,14 @@ function ItemModal({ card, isOpen, handleCloseModal }) {
         >
           <img src={closeButton} alt="Close" />
         </button>
-        <img src={card.link} alt={card.name} className="modal__image" />
+        <img src={card.imageUrl} alt={card.name} className="modal__image" />
         <div className="modal__footer">
-          <h2 className="modal__text">{card.name}</h2>
+          <h2 className="modal__text">
+            {card.name}
+            <button onClick={handleDelete} className="modal__delete-btn">
+              Delete item
+            </button>
+          </h2>
           <p className="modal__weather">Weather: {card.weather}</p>
         </div>
       </div>

@@ -10,10 +10,11 @@ function ModalWithForm({
   buttonText,
   name,
   handleCloseModal,
+  handleClose
 }) {
   function handleOverlayClick(event) {
     if (event.target === event.currentTarget) {
-      handleCloseModal();
+      handleClose(event);
     }
   }
   return (
