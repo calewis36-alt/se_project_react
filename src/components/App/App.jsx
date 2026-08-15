@@ -9,7 +9,7 @@ import Profile from "../Profile/Profile";
 import "./App.css";
 import { getWeatherData } from "../../utils/weatherApi";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
-import { getItems, addItem, deleteItem } from "../../../api";
+import { getItems, addItem, deleteItem } from "../../utils/api.js";
 
 function App() {
   const [clothingItems, setClothingItems] = useState([]);
