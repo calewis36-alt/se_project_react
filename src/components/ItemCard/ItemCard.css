@@ -32,3 +32,28 @@
   color: #e9e9e9;
   border: 1px solid rgba(0, 0, 0, 0.3);
 }
+
+.card__like-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  border: none;
+  background-color: transparent;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.card__like-button:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.card__like-button_active {
+  background-image: url(../images/liked-icon.svg);
+  opacity: 1;
+}
+
+
+.card__like-button_active:hover {
+  opacity: .4;
+}

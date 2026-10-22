@@ -1,8 +1,14 @@
 import "./ItemCard.css";
+import likeIcon from "../../assets/like-icon.svg";
+import likedIcon from "../../assets/liked-icon.svg";
 
-function ItemCard({ data, onCardClick }) {
+function ItemCard({ data, onCardClick, onCardLike, currentUser }) {
   function handleOpenCard() {
     onCardClick(data);
+  }
+
+  function handleLikeCard() {
+    onCardLike(data);
   }
 
   return (
@@ -14,6 +20,23 @@ function ItemCard({ data, onCardClick }) {
         className="card__image"
         onClick={handleOpenCard}
       />
+      <button
+        className="card__like-button"
+        onClick={handleLikeCard}
+        aria-label="Like"
+      >
+        {currentUser && (
+          <img
+            src={
+              data.likes.some((like) => like === currentUser._id)
+                ? likedIcon
+                : likeIcon
+            }
+            alt="like"
+            className="card__like-icon"
+          />
+        )}
+      </button>
     </li>
   );
 }

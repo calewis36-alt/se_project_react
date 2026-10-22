@@ -1,0 +1,42 @@
+.modal_type_delete-confirmation-form .modal__title {
+  text-align: center;
+}
+
+.modal__confirmation-text {
+  order: 1;
+  text-align: center;
+}
+
+.modal_type_delete-confirmation-form .modal__cancel-btn {
+  color: #000;
+  order: 3;
+  font-weight: 700;
+  background: none;
+  border: none;
+}
+
+.modal_type_delete-confirmation-form .modal__submit-btn {
+  order: 2;
+  color: #f26b4a;
+  background: none;
+  border: none;
+}
+
+.modal_type_delete-confirmation-form .modal__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal_type_delete-confirmation-form .modal__title {
+  margin-bottom: 0;
+}
+
+.modal_type_delete-confirmation-form .modal__confirmation-text {
+  margin-top: 8px;
+}
+
+.modal_type_delete-confirmation-form .modal__submit-btn,
+.modal_type_delete-confirmation-form .modal__cancel-btn {
+  display: block;
+  margin: 12px auto 0;
+}

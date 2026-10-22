@@ -104,7 +104,7 @@
 .modal__input {
   display: block;
   border: none;
-  border-bottom: 1px solid #000;
+  border-bottom: 2px solid #000;
   padding-left: 0;
   padding-bottom: 4px;
   padding-top: 8px;
@@ -135,12 +135,16 @@
 .modal__image-url {
   display: block;
   border: none;
-  border-bottom: 1px solid #000;
+  border-bottom: 2px solid #000;
   padding-left: 0;
   padding-bottom: 4px;
   padding-top: 8px;
   width: 100%;
   outline: none;
+}
+
+.garment__label {
+  display: block;
 }
 
 .fieldset__radio {
@@ -164,11 +168,13 @@
 
 .modal__radio-btn:checked {
   accent-color: #000000;
+  font-weight: 700;
 }
 
-.modal__radio-btn:checked + .modal__label {
+.modal__radio-btn:checked + .radio__label {
   accent-color: #000000;
   color: #000000;
+  font-weight: 700;
 }
 
 .modal__submit-btn {

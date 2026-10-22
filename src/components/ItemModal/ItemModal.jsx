@@ -2,9 +2,16 @@ import React from "react";
 import "./ItemModal.css";
 import closeButton from "../../assets/close-btn.svg";
 
-function ItemModal({ card, isOpen, handleCloseModal, handleDeleteItem }) {
+function ItemModal({
+  card,
+  isOpen,
+  handleCloseModal,
+  handleDeleteItem,
+  handleOpenConfirmationModal,
+  currentUser,
+}) {
   function handleDelete() {
-    handleDeleteItem(card);
+    handleOpenConfirmationModal(card);
   }
   function handleOverlayClick(event) {
     if (event.target === event.currentTarget) {

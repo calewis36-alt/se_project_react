@@ -40,7 +40,7 @@ function AddItemModal({
       handleClose={handleClose}
     >
       <fieldset className="modal__fieldset">
-        <label htmlFor="garment-name" className="modal__label">
+        <label htmlFor="garment-name" className="garment__label">
           Name
           <input
             id="garment-name"
@@ -85,7 +85,7 @@ function AddItemModal({
             checked={values.weather === "hot"}
             onChange={handleChange}
           />
-          <label className={"modal__label"} htmlFor="hot">
+          <label className={"radio__label"} htmlFor="hot">
             Hot
           </label>
         </div>
@@ -100,7 +100,7 @@ function AddItemModal({
             checked={values.weather === "warm"}
             onChange={handleChange}
           />
-          <label className={"modal__label"} htmlFor="warm">
+          <label className={"radio__label"} htmlFor="warm">
             Warm
           </label>
         </div>
@@ -115,7 +115,7 @@ function AddItemModal({
             checked={values.weather === "cold"}
             onChange={handleChange}
           />
-          <label className={"modal__label"} htmlFor="cold">
+          <label className={"radio__label"} htmlFor="cold">
             Cold
           </label>
         </div>

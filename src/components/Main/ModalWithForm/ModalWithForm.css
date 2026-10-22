@@ -5,7 +5,10 @@
   position: relative;
   border-radius: 16px;
   overflow: hidden;
-  padding: 30px;
+}
+
+.modal__submit-btn {
+  margin-top: 24px;
 }
 
 .modal__close-btn_type_form {
