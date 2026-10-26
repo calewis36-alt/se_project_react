@@ -5,12 +5,13 @@ import "./ModalWithForm.css";
 function ModalWithForm({
   isOpen,
   children,
+  switchButton,
   handleSubmit,
   title,
   buttonText,
   name,
   handleCloseModal,
-  handleClose
+  handleClose,
 }) {
   function handleOverlayClick(event) {
     if (event.target === event.currentTarget) {
@@ -38,9 +39,12 @@ function ModalWithForm({
           noValidate
         >
           {children}
-          <button type="submit" className="modal__submit-btn">
-            {buttonText}
-          </button>
+          <div className="modal__btn-group">
+            <button type="submit" className="modal__submit-btn">
+              {buttonText}
+            </button>
+            {switchButton}
+          </div>
         </form>
       </div>
     </div>

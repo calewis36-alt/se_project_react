@@ -7,6 +7,7 @@ function LoginModal({
   handleCloseModal,
   handleLogin,
   errorMessage,
+  setActiveModal,
   setErrorMessage,
   isOpen,
 }) {
@@ -37,10 +38,19 @@ function LoginModal({
       handleCloseModal={handleCloseModal}
       handleSubmit={handleSubmit}
       handleClose={handleClose}
+      switchButton={
+        <button
+          className="modal__switch-btn"
+          type="button"
+          onClick={() => setActiveModal("register-modal")}
+        >
+          or Sign up
+        </button>
+      }
     >
       <fieldset className="modal__fieldset">
         <label htmlFor="email" className="modal__label">
-          Email
+          Email*
           <input
             name="email"
             id="email"
@@ -52,7 +62,7 @@ function LoginModal({
           />
         </label>
         <label htmlFor="password" className="modal__label">
-          Password
+          Password*
           <input
             id="password"
             type="password"

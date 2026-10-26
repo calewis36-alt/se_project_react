@@ -9,6 +9,7 @@ import Profile from "../Profile/Profile";
 import "./App.css";
 import { getWeatherData } from "../../utils/weatherApi";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 import {
   getItems,
   addItem,
@@ -132,8 +133,10 @@ function App() {
       .then((data) => {
         localStorage.setItem("jwt", data.token);
         setIsLoggedIn(true);
-        setCurrentUser(data.user);
-        handleCloseModal();
+        checkToken(data.token).then((user) => {
+          setCurrentUser(user);
+          handleCloseModal();
+        });
       })
       .catch((err) => {
         setErrorMessage(err);
@@ -149,9 +152,15 @@ function App() {
   function handleRegister({ name, avatar, email, password }) {
     register({ name, avatar, email, password })
       .then((data) => {
+        return login({ email, password });
+      })
+      .then((loginData) => {
+        localStorage.setItem("jwt", loginData.token);
         setIsLoggedIn(true);
-        setCurrentUser(data.user);
-        handleCloseModal();
+        checkToken(loginData.token).then((user) => {
+          setCurrentUser(user);
+          handleCloseModal();
+        });
       })
       .catch((err) => {
         setErrorMessage(err);
@@ -227,87 +236,86 @@ function App() {
     <CurrentTemperatureUnitContext.Provider
       value={{ currentTemperatureUnit, handleToggleSwitchChange }}
     >
-      <div className="app">
-        <Header
-          weatherData={weatherData}
-          handleOpenAddGarmentModal={handleOpenAddGarmentModal}
-          setActiveModal={setActiveModal}
-          isLoggedIn={isLoggedIn}
-          currentUser={currentUser}
-          handleLogout={handleLogout}
-        />
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Main
-                weatherData={weatherData}
-                clothingItems={clothingItems}
-                handleOpenItemModal={handleOpenItemModal}
-                handleCardLike={handleCardLike}
-                currentUser={currentUser}
-              />
-            }
-          ></Route>
-          <Route
-            path="/profile"
-            element={
-              <ProtectedRoute isLoggedIn={isLoggedIn}>
-                <Profile
-                  currentUser={currentUser}
-                  handleLogout={handleLogout}
-                  setActiveModal={setActiveModal}
+      <CurrentUserContext.Provider value={currentUser}>
+        <div className="app">
+          <Header
+            weatherData={weatherData}
+            handleOpenAddGarmentModal={handleOpenAddGarmentModal}
+            setActiveModal={setActiveModal}
+            isLoggedIn={isLoggedIn}
+            handleLogout={handleLogout}
+          />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Main
+                  weatherData={weatherData}
                   clothingItems={clothingItems}
-                  handleOpenAddGarmentModal={handleOpenAddGarmentModal}
                   handleOpenItemModal={handleOpenItemModal}
+                  handleCardLike={handleCardLike}
                 />
-              </ProtectedRoute>
-            }
-          ></Route>
-        </Routes>
-
-        <Footer />
-        <ItemModal
-          card={selectedCard}
-          isOpen={activeModal === "item-modal"}
-          handleCloseModal={handleCloseModal}
-          handleDeleteItem={handleDeleteItem}
-          handleOpenConfirmationModal={handleOpenConfirmationModal}
-          currentUser={currentUser}
-        />
-        <AddItemModal
-          isOpen={activeModal === "add-garment-modal"}
-          handleCloseModal={handleCloseModal}
-          handleAddItemSubmit={handleAddItemSubmit}
-          errorMessage={errorMessage}
-          setErrorMessage={setErrorMessage}
-        />
-        <LoginModal
-          isOpen={activeModal === "login-modal"}
-          handleCloseModal={handleCloseModal}
-          handleLogin={handleLogin}
-          errorMessage={errorMessage}
-        />
-        <RegisterModal
-          isOpen={activeModal === "register-modal"}
-          handleCloseModal={handleCloseModal}
-          handleRegister={handleRegister}
-          errorMessage={errorMessage}
-        />
-        <EditProfileModal
-          isOpen={activeModal === "edit-profile-modal"}
-          handleCloseModal={handleCloseModal}
-          handleUpdateUser={handleEditProfile}
-          errorMessage={errorMessage}
-          setErrorMessage={setErrorMessage}
-          currentUser={currentUser}
-        />
-        <DeleteConfirmationModal
-          isOpen={activeModal === "delete-confirmation-modal"}
-          handleCloseModal={handleCloseModal}
-          handleDeleteItem={() => handleDeleteItem(selectedCard)}
-        />
-      </div>
+              }
+            ></Route>
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute isLoggedIn={isLoggedIn}>
+                  <Profile
+                    handleLogout={handleLogout}
+                    setActiveModal={setActiveModal}
+                    clothingItems={clothingItems}
+                    handleOpenAddGarmentModal={handleOpenAddGarmentModal}
+                    handleOpenItemModal={handleOpenItemModal}
+                    handleCardLike={handleCardLike}
+                  />
+                </ProtectedRoute>
+              }
+            ></Route>
+          </Routes>
+          <Footer />
+          <ItemModal
+            card={selectedCard}
+            isOpen={activeModal === "item-modal"}
+            handleCloseModal={handleCloseModal}
+            handleDeleteItem={handleDeleteItem}
+            handleOpenConfirmationModal={handleOpenConfirmationModal}
+          />
+          <AddItemModal
+            isOpen={activeModal === "add-garment-modal"}
+            handleCloseModal={handleCloseModal}
+            handleAddItemSubmit={handleAddItemSubmit}
+            errorMessage={errorMessage}
+            setErrorMessage={setErrorMessage}
+          />
+          <LoginModal
+            isOpen={activeModal === "login-modal"}
+            handleCloseModal={handleCloseModal}
+            handleLogin={handleLogin}
+            errorMessage={errorMessage}
+            setActiveModal={setActiveModal}
+          />
+          <RegisterModal
+            isOpen={activeModal === "register-modal"}
+            handleCloseModal={handleCloseModal}
+            handleRegister={handleRegister}
+            errorMessage={errorMessage}
+            setActiveModal={setActiveModal}
+          />
+          <EditProfileModal
+            isOpen={activeModal === "edit-profile-modal"}
+            handleCloseModal={handleCloseModal}
+            handleUpdateUser={handleEditProfile}
+            errorMessage={errorMessage}
+            setErrorMessage={setErrorMessage}
+          />
+          <DeleteConfirmationModal
+            isOpen={activeModal === "delete-confirmation-modal"}
+            handleCloseModal={handleCloseModal}
+            handleDeleteItem={() => handleDeleteItem(selectedCard)}
+          />
+        </div>
+      </CurrentUserContext.Provider>
     </CurrentTemperatureUnitContext.Provider>
   );
 }

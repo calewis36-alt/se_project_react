@@ -6,21 +6,18 @@ function Profile({
   clothingItems,
   handleOpenAddGarmentModal,
   handleOpenItemModal,
-  currentUser,
   handleLogout,
   setActiveModal,
+  handleCardLike,
 }) {
   return (
     <main className="profile">
-      <SideBar
-        currentUser={currentUser}
-        handleLogout={handleLogout}
-        setActiveModal={setActiveModal}
-      />
+      <SideBar handleLogout={handleLogout} setActiveModal={setActiveModal} />
       <ClothesSection
         clothingItems={clothingItems}
         handleOpenAddGarmentModal={handleOpenAddGarmentModal}
         handleOpenItemModal={handleOpenItemModal}
+        handleCardLike={handleCardLike}
       />
     </main>
   );

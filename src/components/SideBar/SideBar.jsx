@@ -1,7 +1,10 @@
 import "./SideBar.css";
 import avatar from "../../assets/avatar.svg";
+import { useContext } from "react";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-function SideBar({ currentUser, handleLogout, setActiveModal }) {
+function SideBar({ handleLogout, setActiveModal }) {
+  const currentUser = useContext(CurrentUserContext);
   return (
     <aside className="sidebar">
       <div className="sidebar__row">
@@ -13,15 +16,15 @@ function SideBar({ currentUser, handleLogout, setActiveModal }) {
         />
       </div>
       <div className="sidebar__buttons">
-      <button
-        onClick={() => setActiveModal("edit-profile-modal")}
-        className="sidebar__edit-profile-btn"
-      >
-Change Profile data
-      </button>
-      <button onClick={handleLogout} className="sidebar__logout-btn">
-        Log out
-      </button>
+        <button
+          onClick={() => setActiveModal("edit-profile-modal")}
+          className="sidebar__edit-profile-btn"
+        >
+          Change Profile data
+        </button>
+        <button onClick={handleLogout} className="sidebar__logout-btn">
+          Log out
+        </button>
       </div>
     </aside>
   );

@@ -6,6 +6,7 @@ const defaultValues = { name: "", avatar: "", email: "", password: "" };
 function RegisterModal({
   handleCloseModal,
   errorMessage,
+  setActiveModal,
   setErrorMessage,
   handleRegister,
   isOpen,
@@ -39,32 +40,17 @@ function RegisterModal({
       handleCloseModal={handleCloseModal}
       handleSubmit={handleSubmit}
       handleClose={handleClose}
+      switchButton={
+        <button
+          className="modal__switch-btn"
+          type="button"
+          onClick={() => setActiveModal("login-modal")}
+        >
+          or Login
+        </button>
+      }
     >
       <fieldset className="modal__fieldset">
-        <label htmlFor="name" className="modal__label">
-          Name
-          <input
-            name="name"
-            id="name"
-            type="text"
-            className="modal__input"
-            placeholder="Name"
-            value={values.name}
-            onChange={handleChange}
-          />
-        </label>
-        <label htmlFor="avatar" className="modal__label">
-          Avatar
-          <input
-            name="avatar"
-            id="avatar"
-            type="url"
-            className="modal__input"
-            placeholder="Avatar URL"
-            value={values.avatar}
-            onChange={handleChange}
-          />
-        </label>
         <label htmlFor="email" className="modal__label">
           Email
           <input
@@ -78,7 +64,7 @@ function RegisterModal({
           />
         </label>
         <label htmlFor="password" className="modal__label">
-          Password
+          Password*
           <input
             id="password"
             type="password"
@@ -86,6 +72,30 @@ function RegisterModal({
             placeholder="Password"
             name="password"
             value={values.password}
+            onChange={handleChange}
+          />
+        </label>
+        <label htmlFor="name" className="modal__label">
+          Name*
+          <input
+            name="name"
+            id="name"
+            type="text"
+            className="modal__input"
+            placeholder="Name"
+            value={values.name}
+            onChange={handleChange}
+          />
+        </label>
+        <label htmlFor="avatar" className="modal__label">
+          Avatar URL*
+          <input
+            name="avatar"
+            id="avatar"
+            type="url"
+            className="modal__input"
+            placeholder="Avatar URL"
+            value={values.avatar}
             onChange={handleChange}
           />
         </label>

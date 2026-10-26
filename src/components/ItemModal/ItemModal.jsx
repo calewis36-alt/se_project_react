@@ -1,6 +1,8 @@
 import React from "react";
 import "./ItemModal.css";
 import closeButton from "../../assets/close-btn.svg";
+import { useContext } from "react";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function ItemModal({
   card,
@@ -8,8 +10,8 @@ function ItemModal({
   handleCloseModal,
   handleDeleteItem,
   handleOpenConfirmationModal,
-  currentUser,
 }) {
+  const currentUser = useContext(CurrentUserContext);
   function handleDelete() {
     handleOpenConfirmationModal(card);
   }

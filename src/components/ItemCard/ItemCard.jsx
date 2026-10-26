@@ -1,8 +1,11 @@
 import "./ItemCard.css";
 import likeIcon from "../../assets/like-icon.svg";
 import likedIcon from "../../assets/liked-icon.svg";
+import { useContext } from "react";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-function ItemCard({ data, onCardClick, onCardLike, currentUser }) {
+function ItemCard({ data, onCardClick, onCardLike }) {
+  const currentUser = useContext(CurrentUserContext);
   function handleOpenCard() {
     onCardClick(data);
   }

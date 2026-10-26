@@ -2,26 +2,24 @@ import { useForm } from "../../hooks/useForm";
 import ModalWithForm from "../Main/ModalWithForm/ModalWithForm";
 import "./EditProfileModal.css";
 import { useEffect } from "react";
+import { useContext } from "react";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-function EditProfileModal({
-  isOpen,
-  handleCloseModal,
-  handleUpdateUser,
-  currentUser,
-}) {
+function EditProfileModal({ isOpen, handleCloseModal, handleUpdateUser }) {
+  const currentUser = useContext(CurrentUserContext);
   const { values, setValues, handleChange } = useForm({
     name: currentUser?.name || "",
     avatar: currentUser?.avatar || "",
   });
 
   useEffect(() => {
-  if (isOpen) {
-    setValues({
-      name: currentUser?.name || "",
-      avatar: currentUser?.avatar || "",
-    });
-  }
-}, [isOpen, currentUser, setValues]);
+    if (isOpen) {
+      setValues({
+        name: currentUser?.name || "",
+        avatar: currentUser?.avatar || "",
+      });
+    }
+  }, [isOpen, currentUser, setValues]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -51,25 +49,25 @@ function EditProfileModal({
       name="edit-profile-form"
       handleCloseModal={handleCloseModal}
     >
-      <label className= "modal__label">
+      <label className="modal__label">
         Name *
-      <input
-        type="text"
-        name="name"
-        value={values.name}
-        onChange={handleChange}
-        placeholder="Name"
-      />
+        <input
+          type="text"
+          name="name"
+          value={values.name}
+          onChange={handleChange}
+          placeholder="Name"
+        />
       </label>
-      <label className= "modal__label">
+      <label className="modal__label">
         Avatar *
-      <input
-        type="url"
-        name="avatar"
-        value={values.avatar}
-        onChange={handleChange}
-        placeholder="Avatar URL"
-      />
+        <input
+          type="url"
+          name="avatar"
+          value={values.avatar}
+          onChange={handleChange}
+          placeholder="Avatar URL"
+        />
       </label>
     </ModalWithForm>
   );

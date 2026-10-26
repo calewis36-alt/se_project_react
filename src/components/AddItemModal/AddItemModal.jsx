@@ -52,7 +52,7 @@ function AddItemModal({
             onChange={handleChange}
           />
         </label>
-        <label className="modal__image">
+        <label className="garment__label">
           Image{" "}
           {errorMessage && <span className="modal__error">{errorMessage}</span>}
           <input

@@ -5,7 +5,12 @@ import { useContext } from "react";
 import { BrowserRouter } from "react-router-dom";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 
-function Main({ clothingItems, handleOpenItemModal, weatherData, currentUser, handleCardLike }) {
+function Main({
+  clothingItems,
+  handleOpenItemModal,
+  weatherData,
+  handleCardLike,
+}) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
   const filteredItems = clothingItems.filter(
     (item) => item.weather === weatherData.type,
@@ -29,7 +34,6 @@ function Main({ clothingItems, handleOpenItemModal, weatherData, currentUser, ha
               data={item}
               onCardClick={handleOpenItemModal}
               onCardLike={handleCardLike}
-              currentUser={currentUser}
             />
           );
         })}
