@@ -50,4 +50,12 @@ function removeCardLike(id) {
   }).then(checkResponse);
 }
 
-export { getItems, addItem, deleteItem, addCardLike, removeCardLike, baseUrl };
+export {
+  getItems,
+  addItem,
+  deleteItem,
+  addCardLike,
+  removeCardLike,
+  checkResponse,
+  baseUrl,
+};

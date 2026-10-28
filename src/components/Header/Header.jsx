@@ -44,15 +44,21 @@ function Header({
             + Add clothes
           </button>
         )}
-        {isLoggedIn ? (
+        {isLoggedIn && currentUser ? (
           <>
             <Link className="header__profile-link" to="/profile">
               <p className="header__username">{currentUser.name}</p>
-              <img
-                src={currentUser.avatar || avatar}
-                alt="User avatar"
-                className="header__avatar"
-              />
+              {currentUser.avatar ? (
+                <img
+                  src={currentUser.avatar}
+                  alt="User avatar"
+                  className="header__avatar"
+                />
+              ) : (
+                <div className="header__avatar header__avatar-placeholder">
+                  {currentUser.name.charAt(0)}
+                </div>
+              )}
             </Link>
           </>
         ) : (

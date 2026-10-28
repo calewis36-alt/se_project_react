@@ -10,6 +10,7 @@ function ItemModal({
   handleCloseModal,
   handleDeleteItem,
   handleOpenConfirmationModal,
+  isLoggedIn,
 }) {
   const currentUser = useContext(CurrentUserContext);
   function handleDelete() {
@@ -39,9 +40,11 @@ function ItemModal({
         <div className="modal__footer">
           <h2 className="modal__text">
             {card.name}
-            <button onClick={handleDelete} className="modal__delete-btn">
-              Delete item
-            </button>
+            {isLoggedIn && currentUser && card.owner === currentUser._id && (
+              <button onClick={handleDelete} className="modal__delete-btn">
+                Delete item
+              </button>
+            )}
           </h2>
           <p className="modal__weather">Weather: {card.weather}</p>
         </div>

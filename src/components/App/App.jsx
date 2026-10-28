@@ -280,6 +280,7 @@ function App() {
             handleCloseModal={handleCloseModal}
             handleDeleteItem={handleDeleteItem}
             handleOpenConfirmationModal={handleOpenConfirmationModal}
+            isLoggedIn={isLoggedIn}
           />
           <AddItemModal
             isOpen={activeModal === "add-garment-modal"}

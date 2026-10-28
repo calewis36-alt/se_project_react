@@ -9,11 +9,15 @@ function SideBar({ handleLogout, setActiveModal }) {
     <aside className="sidebar">
       <div className="sidebar__row">
         <p className="sidebar__username">{currentUser?.name || "User"}</p>
-        <img
-          src={currentUser?.avatar || avatar}
-          alt="User's Avatar"
-          className="sidebar__avatar"
-        />
+        {currentUser?.avatar ? (
+          <img
+            src={currentUser.avatar}
+            alt={currentUser.name}
+            className="sidebar__avatar"
+          />
+        ) : (
+          <div className="avatar-placeholder">{currentUser?.name[0]}</div>
+        )}
       </div>
       <div className="sidebar__buttons">
         <button
